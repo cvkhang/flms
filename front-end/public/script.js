@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamsList = document.createElement('ul');
         teams.forEach(team => {
           const listItem = document.createElement('li');
-          listItem.textContent = team.name; // Make sure your data has a 'name' property
+          listItem.textContent = team.team_name; // Make sure your data has a 'name' property
           teamsList.appendChild(listItem);
         });
         teamsContainer.appendChild(teamsList);

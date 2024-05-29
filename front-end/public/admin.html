@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    
+    <section id="add-stadium">
+        <h2>Add Stadium</h2>
+        <form id="add-stadium-form">
+            <label for="stadium-name">Stadium Name:</label>
+            <input type="text" id="stadium-name" name="stadium_name"><br>
+    
+            <label for="capacity">Capacity:</label>
+            <input type="number" id="capacity" name="capacity"><br>
+    
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city"><br>
+    
+            <label for="street">Street:</label>
+            <input type="text" id="street" name="street"><br> 
+    
+            <button type="button" onclick="addStadium()">Add Stadium</button> 
+        </form>
+    </section>
+    
+
+    <section id="add-team">
+        <h2>Add Team</h2>
+        <form id="add-team-form">
+            <label for="team-name">Team Name:</label>
+            <input type="text" id="team-name" name="team_name"><br>
+
+            <label for="stadium-id">Stadium:</label>
+            <select id="stadium-id" name="stadium_id">
+                </select><br>
+        <button type="button" onclick="addTeam()">Add Team</button> 
+        </form>
+    </section>
+    <script src="adminScript.js"></script> </body>
+</html>
+
