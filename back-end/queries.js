@@ -18,7 +18,7 @@ pool.query('SELECT NOW()', (err, res) => {
     });
 
 const getTeams = (request, response) => {
-  pool.query('SELECT * FROM teams ORDER BY rank ASC', (error, results) => {
+  pool.query('SELECT * FROM _flms.teams ORDER BY position ASC', (error, results) => {
     if (error) {
       throw error
     }
@@ -27,9 +27,9 @@ const getTeams = (request, response) => {
 }
 
 const getTeamByTeam_name = (request, response) => {
-    const team_name = (request.params.id)
+    const club_name = (request.params.id)
   
-    pool.query('SELECT * FROM teams WHERE team_name = $1', [team_name], (error, results) => {
+    pool.query('SELECT * FROM  _flms.teams WHERE club_name = $1', [club_name], (error, results) => {
       if (error) {
         throw error
       }
@@ -38,45 +38,45 @@ const getTeamByTeam_name = (request, response) => {
 }
 
 const createTeam = (request, response) => {
-    const { team_name, stadium_name, point, goal_difference, rank } = request.body
+    const { club_name, stadium_name, point, goal_difference, position } = request.body
   
-    pool.query('INSERT INTO teams (team_name, stadium_name, point, goal_difference, rank) VALUES ($1, $2, $3, $4, $5) RETURNING *', [team_name, stadium_name, point, goal_difference, rank], (error, results) => {
+    pool.query('INSERT INTO  _flms.teams (club_name, stadium_name, point, goal_difference, position) VALUES ($1, $2, $3, $4, $5) RETURNING *', [club_name, stadium_name, point, goal_difference, position], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`User added with ID: ${results.rows[0].id}`)
+      response.status(201).send(`Team added with club_name: ${results.rows[0].club_name}`)
     })
 }
 
 const updateTeam = (request, response) => {
-    const team_name = (request.params.id)
-    const { stadium_name, point, goal_difference, rank } = request.body
+    const club_name = (request.params.id)
+    const { stadium_name, point, goal_difference, position } = request.body
   
     pool.query(
-      'UPDATE teams SET stadium_name = $2, point = $3, goal_difference = $4, rank = $5 WHERE team_name = $1',
-      [team_name, stadium_name, point, goal_difference, rank],
+      'UPDATE  _flms.teams SET stadium_name = $2, point = $3, goal_difference = $4, position = $5 WHERE club_name = $1',
+      [club_name, stadium_name, point, goal_difference, position],
       (error, results) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`User modified with ID: ${id}`)
+        response.status(200).send(`Team modified with name: ${club_name}`)
       }
     )
 }
 
 const deleteTeam = (request, response) => {
-    const team_name = (request.params.id)
+    const club_name = (request.params.id)
   
-    pool.query('DELETE FROM teams WHERE team_name = $1', [team_name], (error, results) => {
+    pool.query('DELETE FROM  _flms.teams WHERE club_name = $1', [club_name], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Team deleted with name: ${team_name}`)
+      response.status(200).send(`Team deleted with club_name: ${club_name}`)
     })
 }
 //Stadium
 const getStadiums = (request, response) => {
-    pool.query('SELECT * FROM stadiums ORDER BY stadium_name desc', (error, results) => {
+    pool.query('SELECT * FROM  _flms.stadiums ORDER BY stadium_name desc', (error, results) => {
       if (error) {
         throw error
       }
@@ -87,7 +87,7 @@ const getStadiums = (request, response) => {
   const getStadiumByStadium_name = (request, response) => {
       const stadium_name = (request.params.id)
     
-      pool.query('SELECT * FROM stadiums WHERE stadium_name = $1', [stadium_name], (error, results) => {
+      pool.query('SELECT * FROM  _flms.stadiums WHERE stadium_name = $1', [stadium_name], (error, results) => {
         if (error) {
           throw error
         }
@@ -98,7 +98,7 @@ const getStadiums = (request, response) => {
   const createStadium = (request, response) => {
       const { stadium_name, street, city, capacity } = request.body
     
-      pool.query('INSERT INTO stadiums (stadium_name, street, city, capacity) VALUES ($1, $2, $3, $4) RETURNING *', [stadium_name, street, city, capacity], (error, results) => {
+      pool.query('INSERT INTO  _flms.stadiums (stadium_name, street, city, capacity) VALUES ($1, $2, $3, $4) RETURNING *', [stadium_name, street, city, capacity], (error, results) => {
         if (error) {
           throw error
         }
@@ -117,8 +117,8 @@ module.exports = {
     getStadiums,
     getStadiumByStadium_name,
     createStadium,
-    updateStadium,
-    deleteStadium,
+    //updateStadium,
+    //deleteStadium,
     //Player
     //Manager
     //Match

@@ -1,15 +1,154 @@
 body {
-    font-family: sans-serif;
-  }
+    background-image: url("https://gcdnb.pbrd.co/images/IQc1lyvQwMLo.png?o=1");
+    background-size: cover;
+    margin: 0;
+}
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 30px;
+}
+
+
+#teams-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
   
-  #teams-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  #teams-container ul {
-    list-style: none;
-    padding: 0;
-  }
+#teams-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.header1 {
+  display: flex;          
+  flex-direction: column;  
+  align-items: center;  
+  margin: 0;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  color: #38003c;
+  background-color: 	#38003c48;
+}
+
+.nav-links { /* Style the navigation links container (optional) */
+  display: flex;
+  gap: 15px; /* Add space between links */
+}
+
+.header1 h1 {
+  margin-top: 0;
+  margin-bottom: 10px;  /* Add some space below the heading */
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 50px;
+}
+
+.header1 a {  /* Style all links within .header1 */
+  display: inline-block;  /* Make them behave like block elements */
+  padding: 10px 20px;   /* Add some padding for visual appeal */
+  background-color: #440149; /* Set a default background color (blue) */
+  color: #ffff;          /* Set text color to white */
+  text-decoration: none; /* Remove default underline */
+  border: none;          /* Remove default border */
+  border-radius: 5px;    /* Add rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+}
+
+.header1 a:hover {    /* Styles for when you hover over a link */
+  background-color: #36013a; /* Darker blue on hover */
+  cursor: pointer;        /* Change cursor to indicate it's clickable */
+}
+
+.header1 a:active {   /* Styles for when you click a link */
+  background-color: #200023; /* Even darker blue on click */
+}
+
+/* Overall Table Styling */
+#league-table {
+  width: 100%; /* Or set a specific width */
+  border-collapse: collapse; /* Remove extra spacing between cells */
+  margin: 20px auto; /* Center the table with some margin */
+  font-family: "Roboto", sans-serif; /* Consistent font for the table */
+}
+
+/* Table Header Styling */
+#league-table th {
+  background-color: #38003c; /* Blue header background */
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Table Row Styling */
+#league-table tr {
+  border-bottom: 1px solid #ddd; /* Light gray border between rows */
+}
+
+/* Table Row Hover Effect */
+#league-table tr:hover {
+  background-color: #f5f5f5; /* Light gray background on hover */
+}
+
+/* Table Data Cell Styling */
+#league-table td {
+  padding: 10px;
+  text-align: center; /* Center the data in cells */
+}
+
+
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+
   
