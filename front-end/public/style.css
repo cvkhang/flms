@@ -1,27 +1,16 @@
 body {
-    background-image: url("https://gcdnb.pbrd.co/images/IQc1lyvQwMLo.png?o=1");
+    background-color: #ffffff;
     background-size: cover;
     margin: 0;
 }
 
 h1 {
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-style: normal;
+  font-family: "Radikal";
+  font-weight: medium;
   font-size: 30px;
 }
 
 
-#teams-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-  
-#teams-container ul {
-  list-style: none;
-  padding: 0;
-}
 
 .header1 {
   display: flex;          
@@ -32,9 +21,15 @@ h1 {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
-  color: #38003c;
-  background-color: 	#38003c48;
+  color: #ffff;
+  background-image: url(/front-end/img/background3.jpg);
+  background-position: 0% center; /* Start at 0% (left) */
+  background-size: 100%;   /* Adjust size as needed, keeping height at 100% */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  transition: opacity 1s ease; /* Smooth fade-in transition */
 }
+
+
 
 .nav-links { /* Style the navigation links container (optional) */
   display: flex;
@@ -44,9 +39,8 @@ h1 {
 .header1 h1 {
   margin-top: 0;
   margin-bottom: 10px;  /* Add some space below the heading */
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-style: normal;
+  font-family: "Radikal";
+  font-weight: 900;
   font-size: 50px;
 }
 
@@ -59,9 +53,8 @@ h1 {
   border: none;          /* Remove default border */
   border-radius: 5px;    /* Add rounded corners */
   transition: background-color 0.3s ease; /* Smooth transition effect */
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+  font-family: "Radikal";
+  font-weight: bold;
   font-size: 15px;
 }
 
@@ -79,32 +72,123 @@ h1 {
   width: 100%; /* Or set a specific width */
   border-collapse: collapse; /* Remove extra spacing between cells */
   margin: 20px auto; /* Center the table with some margin */
-  font-family: "Roboto", sans-serif; /* Consistent font for the table */
+  font-family: "Radikal"; /* Consistent font for the table */
 }
 
-/* Table Header Styling */
+#league-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* This is the key addition */
+}
+
+#league-table th, #league-table td {
+  padding: 8px;
+  text-align: center;
+  overflow: hidden; /* Prevent content from overflowing the cell */
+  text-overflow: ellipsis; /* Add ellipsis (...) if content is too long */
+  white-space: nowrap; /* Prevent text from wrapping */
+  color: #340040; /* Text color for headers */
+}
+
+#league-table {
+  /* ... other styles */
+  background-color: #ffffff; /* White with 80% opacity (adjust as needed) */
+}
+
 #league-table th {
-  background-color: #38003c; /* Blue header background */
-  color: white;
-  padding: 12px;
-  text-align: left;
-  font-weight: bold;
+  /* ... other styles */
+  background-color: #e1e0e0; /* Blue with 90% opacity (adjust color and opacity as needed) */
 }
 
-/* Table Row Styling */
-#league-table tr {
-  border-bottom: 1px solid #ddd; /* Light gray border between rows */
+#league-table tr:nth-child(5) td { /* Selects the 5th row */
+  border-bottom: 1px solid #3383fc; 
+}  /* Selects the 4th row */
+#league-table tr:nth-child(7) td { /* Selects the 7th row */
+  border-bottom: 1px solid #33fc36; 
+}
+#league-table tr:nth-child(18) td { /* Selects the 18th row */
+  border-bottom: 1px solid #ff0000; 
+}
+#league-table tr:nth-child(21) td { /* Selects the 21th row */
+  border-bottom: 1px solid #c1c1c1; 
+}
+
+#league-table td:nth-child(2) {  /* Target the 2nd cell in each row */
+  text-align: left; 
+}
+
+#league-table td:nth-child(3),
+#league-table td:nth-child(2),
+#league-table td:nth-child(1) {  /* Target the 2nd cell in each row */
+  font-weight: bold; 
 }
 
 /* Table Row Hover Effect */
 #league-table tr:hover {
-  background-color: #f5f5f5; /* Light gray background on hover */
+  background-color: #e4e2e2; /* Light gray background on hover */
 }
 
-/* Table Data Cell Styling */
-#league-table td {
-  padding: 10px;
-  text-align: center; /* Center the data in cells */
+
+.main-nav {
+  width: 250px;
+  height: 330px;
+  background-image: url("/front-end/img/background2.jpg");
+  background-size: 500px 400px;
+  background-position: -10px;
+  margin: 150px;
+  text-align: center;
+  display: flex;          /* Enable Flexbox for the navigation menu */
+  flex-direction: column; /* Arrange items vertically */
+  align-items: center;    /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  border-radius: 20px;
+  padding: 20px; 
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  position: relative
+}
+
+
+.nav-title {
+  position:absolute;    /* Position the title relative to the .main-nav container */
+  top: 10px;             /* Set the top position to 20px */
+  text-align: center;    /* Center the text horizontally */
+  margin-bottom: 15px; /* Add some space below the title */
+  color: white;          /* Set the text color to contrast with the background */
+  font-family: 'Radikal';
+  font-weight: bold;
+}
+
+.nav-list {
+  position:absolute;    /* Position the title relative to the .main-nav container */
+  top: 60px; 
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  background-color: #3c0148 ;
+  margin: 20px 0;
+  border-radius: 12px;  
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item:last-child {
+  border-bottom: none;
+}
+
+.nav-link {
+  display: block;
+  padding: 15px 25px;
+  text-decoration: none;
+  color: #ffff;
+  font-family: 'Radikal';
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  background-color: #200027;
+  border-radius: 12px;
 }
 
 
@@ -148,6 +232,30 @@ h1 {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: italic;
+}
+
+@font-face {
+  font-family: 'Radikal'; /* Name you'll use in CSS */
+  src: url('/front-end/img/font/RadikalTrial-Medium.woff2') format('woff2');
+  font-weight: medium; /* Or specify weights: bold, 100, 200, etc. */
+}
+
+@font-face {
+  font-family: 'Radikal'; /* Name you'll use in CSS */
+  src: url('/front-end/img/font/RadikalTrial-Bold.woff2') format('woff2');
+  font-weight: bold; /* Or specify weights: bold, 100, 200, etc. */
+}
+
+@font-face {
+  font-family: 'Radikal'; /* Name you'll use in CSS */
+  src: url('/front-end/img/font/RadikalTrial-Regular.woff2') format('woff2');
+  font-weight: normal; /* Or specify weights: bold, 100, 200, etc. */
+}
+
+@font-face {
+  font-family: 'Radikal'; /* Name you'll use in CSS */
+  src: url('/front-end/img/font/RadikalTrial-Black.woff2') format('woff2');
+  font-weight: 900; /* Or specify weights: bold, 100, 200, etc. */
 }
 
 

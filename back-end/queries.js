@@ -1,5 +1,7 @@
 require('dotenv').config(); // Load environment variables
 const Pool = require('pg').Pool;
+const fs = require('fs');
+
 
 const pool = new Pool({
     host: process.env.DB_HOST,
@@ -16,6 +18,27 @@ pool.query('SELECT NOW()', (err, res) => {
         console.log('Connected to database:', res.rows[0].now);
     }
     });
+
+const getMatchplayedByTeam = (request, response) => {
+  // Read the SQL query from the file
+  fs.readFile('./sql/playedwondrawnlost.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery, (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+    
 
 const getTeams = (request, response) => {
   pool.query('SELECT * FROM _flms.teams ORDER BY position ASC', (error, results) => {
@@ -113,6 +136,7 @@ module.exports = {
     createTeam,
     updateTeam,
     deleteTeam,
+    getMatchplayedByTeam,
     //Stadium
     getStadiums,
     getStadiumByStadium_name,

@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/teams', db.getTeams)
+app.get('/teams/matchplayedbyTeam', db.getMatchplayedByTeam)
 app.get('/teams/:id', db.getTeamByTeam_name)
 app.post('/teams', db.createTeam)
 app.put('/teams/:id', db.updateTeam)

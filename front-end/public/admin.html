@@ -1,51 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="style.css">
+  <title>Football League</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: rgb(52,0,64);
+      background: radial-gradient(circle, rgba(52,0,64,1) 0%, rgba(128,2,157,1) 64%);
+      min-height: 100vh;
+    }
+    /* In your main container (e.g., <main> or <body>) */
+    main {
+      display: flex;
+      justify-content: center; /* Center horizontally */
+      align-items: center;    /* Center vertically */
+      min-height: 70vh;       /* Ensure the container is at least the viewport height */
+    }
+
+  </style>
 </head>
+
 <body>
-    <div id="header-container"></div>
-    <main>
-    </main>
-    <script src="..\components\header.js"></script>
 
-    <h1>Admin Panel</h1>
-    
-    <section id="add-stadium">
-        <h2>Add Stadium</h2>
-        <form id="add-stadium-form">
-            <label for="stadium-name">Stadium Name:</label>
-            <input type="text" id="stadium-name" name="stadium_name"><br>
-    
-            <label for="capacity">Capacity:</label>
-            <input type="number" id="capacity" name="capacity"><br>
-    
-            <label for="city">City:</label>
-            <input type="text" id="city" name="city"><br>
-    
-            <label for="street">Street:</label>
-            <input type="text" id="street" name="street"><br> 
-    
-            <button type="button" onclick="addStadium()">Add Stadium</button> 
-        </form>
-    </section>
-    
+  <div id="header-container"></div>
+  <script src="..\components\header.js"></script>
 
-    <section id="add-team">
-        <h2>Add Team</h2>
-        <form id="add-team-form">
-            <label for="team-name">Team Name:</label>
-            <input type="text" id="team-name" name="team_name"><br>
+  <main>
+    <nav class="main-nav team-manage-nav">
+        <h2 class="nav-title">Team Manage</h2> 
+        <ul class="nav-list">
+            <li class="nav-item"><a href="/front-end/public/teams.html" class="nav-link">Teams</a></li>
+            <li class="nav-item"><a href="/front-end/public/players.html" class="nav-link">Players</a></li>
+            <li class="nav-item"><a href="/front-end/public/coaches.html" class="nav-link">Coaches</a></li>
+            <li class="nav-item"><a href="/front-end/public/squad.html" class="nav-link">Squad</a></li>
+        </ul>
+    </nav>
+    <nav class="main-nav">
+        <h2 class="nav-title">Fixtures Manage</h2> 
+          <ul class="nav-list">
+            <li class="nav-item"><a href="/front-end/public/fixtures.html" class="nav-link">Fixtures</a></li>
+            <li class="nav-item"><a href="/front-end/public/matches.html" class="nav-link">Matches</a></li>
+            <li class="nav-item"><a href="/front-end/public/ref.html" class="nav-link">Referees</a></li>
+          </ul>
+    </nav>
+  </main>
+  
 
-            <label for="stadium-id">Stadium:</label>
-            <select id="stadium-id" name="stadium_id">
-                </select><br>
-        <button type="button" onclick="addTeam()">Add Team</button> 
-        </form>
-    </section>
-    <script src="adminScript.js"></script> </body>
-
+  
+</body>
 
 </html>
-
