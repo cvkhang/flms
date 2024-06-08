@@ -129,6 +129,60 @@ const getStadiums = (request, response) => {
       })
   }
 
+const getPlayersByTeam = (request, response) => {
+  const club_name = (request.params.id)
+  // Read the SQL query from the file
+  fs.readFile('./sql/getPlayersByTeam.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery,[club_name], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const createPlayer = (request, response) => {
+  const { player_name, club_name, position, date_of_birth, shirt_number, begin_date} = request.body
+
+  pool.query('call _flms.insert_player($1,$2,$3,$4::DATE,$5,$6::DATE)', [player_name, club_name, position, date_of_birth, shirt_number, begin_date], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send(`Player added`)
+  })
+}
+
+const deletePlayer = (request, response) => {
+  const player = (request.params.id)
+
+  pool.query('DELETE FROM  _flms.teams WHERE club_name = $1', [club_name], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`Team deleted with club_name: ${club_name}`)
+  })
+}
+
+const updatePlayer = (request, response) => {
+  const player = (request.params.id)
+
+  pool.query('DELETE FROM  _flms.teams WHERE club_name = $1', [club_name], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`Team deleted with club_name: ${club_name}`)
+  })
+}
+
 module.exports = {
     //Team
     getTeams,
@@ -144,6 +198,10 @@ module.exports = {
     //updateStadium,
     //deleteStadium,
     //Player
+    getPlayersByTeam,
+    createPlayer,
+    deletePlayer,
+    updatePlayer
     //Manager
     //Match
     //Ref

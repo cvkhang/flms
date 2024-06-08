@@ -30,6 +30,9 @@ app.get('/stadiums', db.getStadiums)
 app.get('/stadiums/:id', db.getStadiumByStadium_name)
 app.post('/stadiums', db.createStadium)
 
+app.get('/players/:id', db.getPlayersByTeam)
+app.post('/players', db.createPlayer)
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
