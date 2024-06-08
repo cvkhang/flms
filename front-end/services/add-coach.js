@@ -19,32 +19,30 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
 
       // Gather form data 
-      const playerName = document.getElementById("playerName").value;
+      const coach_name = document.getElementById("playerName").value;
       const clubName = clubSelect.value; // Get selected club name from the dropdown
-      const position = document.getElementById("position").value;
+      const nationality = document.getElementById("nation").value;
       const dateOfBirth = document.getElementById("dateOfBirth").value;
-      const shirtNumber = parseInt(document.getElementById("shirtNumber").value);
       const beginDate = document.getElementById("beginDate").value;
       const endDate = document.getElementById("endDate").value;
 
       // Prepare data to send to the API
-      const playerData = {
-          player_name: playerName,
+      const coachData = {
+          coach_name: coach_name,
           club_name: clubName,
-          position: position,
+          nationality: nationality,
           date_of_birth: dateOfBirth, 
-          shirt_number: shirtNumber,
           begin_date: beginDate,
           end_date: endDate
       };
 
       // Send the player data to the API
-      fetch('http://localhost:3000/players', { 
+      fetch('http://localhost:3000/coaches', { 
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
           },
-          body: JSON.stringify(playerData)
+          body: JSON.stringify(coachData)
       })
       .then(response => {
           if (!response.ok) {
@@ -56,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log(data); 
 
           addPlayerModal.style.display = "none"; 
-          updatePlayerList(clubName);  // Update the player list after adding
+          updateCoachList(clubName);  // Update the player list after adding
       })
       .catch(error => {
           console.error('Error adding player:', error); 
@@ -64,28 +62,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function updatePlayerList(clubName) {
-const playerList = document.querySelector(".players-table tbody"); 
+function updateCoachList(clubName) {
+const coachList = document.querySelector(".players-table tbody"); 
 
 if (clubName) {
-  fetch(`http://localhost:3000/players/${clubName}`) 
+  fetch(`http://localhost:3000/coaches/${clubName}`) 
     .then(response => response.json())
-    .then(players => {
-      playerList.innerHTML = ""; 
+    .then(coaches => {
+      coachList.innerHTML = ""; 
       
-      players.forEach(player => {
+      coaches.forEach(coach => {
         // 1. Create Table Row
-                  const row = playerList.insertRow();
+                  const row = coachList.insertRow();
                 
                   // 2. Format and Insert Data
                   const dataToInsert = [
-                    player.player_id, 
-                    player.player_name, 
-                    player.shirt_number, 
-                    player.position,
-                    new Date(player.date_of_birth).toLocaleDateString(),  // Format D.O.B.
-                    new Date(player.begin).toLocaleDateString(),
-                    new Date(player.end).toLocaleDateString()  
+                    coach.coach_id, 
+                    coach.coach_name, 
+                    coach.nationality,
+                    new Date(coach.date_of_birth).toLocaleDateString(),  // Format D.O.B.
+                    new Date(coach.begin).toLocaleDateString(),
+                    new Date(coach.end).toLocaleDateString()  
                   ];
                 
                   dataToInsert.forEach(data => {
@@ -99,9 +96,9 @@ if (clubName) {
       playerList.innerHTML = `<tr><td colspan="6">Error loading players</td></tr>`;
     });
 } else {
-  playerList.innerHTML = ""; 
+  coachList.innerHTML = ""; 
 }
 }
 
 // Initial call to populate the player list when the page loads
-updatePlayerList(document.getElementById("club-select").value);
+updateCoachList(document.getElementById("club-select").value);

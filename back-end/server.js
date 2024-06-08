@@ -32,6 +32,15 @@ app.post('/stadiums', db.createStadium)
 
 app.get('/players/:id', db.getPlayersByTeam)
 app.post('/players', db.createPlayer)
+app.put('/players/:clubName/:playerID', db.updatePlayer)
+app.delete('/players/:playerID', db.deletePlayer)
+
+app.get('/coaches/:clubName', db.getCoachesByTeam)
+app.post('/coaches', db.createCoach)
+app.put('/coaches/:clubName/:coachID', db.updateCoach)
+app.delete('/coaches/:coachID', db.deleteCoach)
+
+
 
 
 app.listen(port, () => {

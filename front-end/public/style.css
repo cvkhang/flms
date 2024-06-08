@@ -233,6 +233,8 @@ a {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
 }
 
+
+
 .players-table th, .players-table td {
   padding: 8px;
   text-align: center;
@@ -245,10 +247,10 @@ a {
 .players-table th {
   background-color: #e1e0e0;
 }
-.players-table th:nth-child(1){
+.players-table th:first-child{
   border-top-left-radius: 12px;  
 }
-.players-table th:nth-child(6){
+.players-table th:last-child{
   border-top-right-radius: 12px;  
 }
 
@@ -276,10 +278,10 @@ a {
   font-weight: bold; 
 }
 
-.players-table tr:last-child td:nth-child(1){
+.players-table tr:last-child td:first-child{
   border-bottom-left-radius: 12px;
 }
-.players-table tr:last-child td:nth-child(6){
+.players-table tr:last-child td:last-child{
   border-bottom-right-radius: 12px;
 }
 
@@ -384,7 +386,15 @@ a {
   width: 30%;
 }
 
-.close-button {
+.modal-content2 {
+  background-color: #fefefe;
+  margin: 100% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+.close-button, .close-button2, .close-button3{
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -392,7 +402,11 @@ a {
 }
 
 .close-button:hover,
-.close-button:focus {
+.close-button:focus,
+.close-button2:hover,
+.close-button2:focus,
+.close-button3:hover,
+.close-button3:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -429,6 +443,28 @@ a {
 }
 
 #addPlayerForm button[type="submit"] {
+  background-color: #510160; /* Blue background */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Radikal';
+}
+
+#updatePlayerForm button[type="submit"] {
+  background-color: #510160; /* Blue background */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Radikal';
+}
+
+#deletePlayerForm button[type="submit"] {
   background-color: #510160; /* Blue background */
   color: white;
   padding: 10px 15px;

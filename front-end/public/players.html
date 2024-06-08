@@ -62,6 +62,7 @@
             <th>Position</th>
             <th>D.O.B</th>
             <th>Begin Date</th>
+            <th>End Date</th>
         </tr>
     </thead>
     <tbody>
@@ -96,10 +97,58 @@
         <label for="beginDate">Begin Date:</label>
         <input type="date" id="beginDate" name="beginDate" required><br><br>
 
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="beginDate" required><br><br>
+
         <button type="submit">Add Player</button>
       </form>
     </div>
-</div>
+  </div>
+
+  <div id="updatePlayerModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button2">&times;</span> 
+      <h2>Update Player</h2>
+      <form id="updatePlayerForm">
+
+        <label for="playerID">Player ID:</label>
+        <input type="text" id="playerID" name="playerName" required><br><br>
+
+        <label for="playerName2">Player Name:</label>
+        <input type="text" id="playerName2" name="playerName" required><br><br>
+
+        <label for="shirtNumber2">Shirt Number:</label>
+        <input type="number" id="shirtNumber2" name="shirtNumber" required><br><br>
+        
+        <label for="position2">Position:</label>
+        <input type="text" id="position2" name="position" required><br><br>
+
+        <label for="dateOfBirth2">Date of Birth:</label>
+        <input type="date" id="dateOfBirth2" name="dateOfBirth" required><br><br>
+
+
+        <label for="beginDate2">Begin Date:</label>
+        <input type="date" id="beginDate2" name="beginDate" required><br><br>
+
+        <label for="endDate2">End Date:</label>
+        <input type="date" id="endDate2" name="beginDate" required><br><br>
+
+        <button type="submit">Update Player</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="deletePlayerModal" class="modal">
+    <div class="modal-content2">
+      <span class="close-button3">&times;</span> 
+      <h2>Delete Player</h2>
+      <form id="deletePlayerForm">
+        <label for="playerName3">Player ID:</label>
+        <input type="text" id="playerName3" name="playerName" required><br><br>
+        <button type="submit">Delete Player</button>
+      </form>
+    </div>
+  </div>
 
 
 
@@ -110,4 +159,6 @@
   
 </body>
 <script src="..\services\add-player.js"></script>
+<script src="..\services\update-player.js"></script>
+<script src="..\services\delete-player.js"></script>
 </html>

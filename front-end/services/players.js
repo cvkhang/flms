@@ -23,7 +23,8 @@ clubSelect.addEventListener("change", () => {
                     player.shirt_number, 
                     player.position,
                     new Date(player.date_of_birth).toLocaleDateString(),  // Format D.O.B.
-                    new Date(player.begin).toLocaleDateString() 
+                    new Date(player.begin).toLocaleDateString(),
+                    new Date(player.end).toLocaleDateString() 
                   ];
                 
                   dataToInsert.forEach(data => {

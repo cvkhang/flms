@@ -151,9 +151,9 @@ const getPlayersByTeam = (request, response) => {
 };
 
 const createPlayer = (request, response) => {
-  const { player_name, club_name, position, date_of_birth, shirt_number, begin_date} = request.body
+  const { player_name, club_name, position, date_of_birth, shirt_number, begin_date, end_date} = request.body
 
-  pool.query('call _flms.insert_player($1,$2,$3,$4::DATE,$5,$6::DATE)', [player_name, club_name, position, date_of_birth, shirt_number, begin_date], (error, results) => {
+  pool.query('call _flms.insert_player($1,$2,$3,$4::DATE,$5,$6::DATE,$7::DATE)', [player_name, club_name, position, date_of_birth, shirt_number, begin_date, end_date], (error, results) => {
     if (error) {
       throw error
     }
@@ -162,27 +162,93 @@ const createPlayer = (request, response) => {
 }
 
 const deletePlayer = (request, response) => {
-  const player = (request.params.id)
+  const playerID = parseInt(request.params.playerID)
 
-  pool.query('DELETE FROM  _flms.teams WHERE club_name = $1', [club_name], (error, results) => {
+  pool.query('call _flms.delete_player($1)', [playerID], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`Team deleted with club_name: ${club_name}`)
+    response.status(200).send(`Player deleted: ${playerID}`)
   })
 }
 
 const updatePlayer = (request, response) => {
-  const player = (request.params.id)
+  const club_name = (request.params.clubName)
+  const player_id = parseInt(request.params.playerID)
+  const { player_name, position, date_of_birth, shirt_number, begin_date, end_date } = request.body
 
-  pool.query('DELETE FROM  _flms.teams WHERE club_name = $1', [club_name], (error, results) => {
+  pool.query(
+    'call _flms.update_player_info($1,$2,$3,$4,$5::DATE,$6,$7::DATE,$8::DATE)',
+    [player_id, club_name, player_name, position, date_of_birth, shirt_number, begin_date, end_date],
+    (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).send(`Player modified with ID: ${player_id}`)
+    }
+  )
+}
+
+/////
+const getCoachesByTeam = (request, response) => {
+  const club_name = (request.params.clubName)
+  // Read the SQL query from the file
+  fs.readFile('./sql/getCoachesByTeam.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery,[club_name], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const createCoach = (request, response) => {
+  const { coach_name, club_name, nationality, date_of_birth, begin_date, end_date} = request.body
+
+  pool.query('call _flms.insert_coach($1,$2,$3,$4::DATE,$5::DATE,$6::DATE)', [coach_name, club_name, nationality, date_of_birth, begin_date, end_date], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`Team deleted with club_name: ${club_name}`)
+    response.status(201).send(`Coach added`)
   })
 }
 
+const deleteCoach = (request, response) => {
+  const coachID = (request.params.coachID)
+
+  pool.query('call _flms.delete_coach($1)', [coachID], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`Coach deleted: ${coachID}`)
+  })
+}
+
+const updateCoach = (request, response) => {
+  const club_name = (request.params.clubName)
+  const coachID = parseInt(request.params.coachID)
+  const {coach_name, nationality, date_of_birth, begin_date, end_date } = request.body
+
+  pool.query(
+    'call _flms.update_coach_info($1,$2,$3,$4,$5::DATE,$6::DATE,$7::DATE)',
+    [coachID,club_name,coach_name,nationality,date_of_birth, begin_date, end_date],
+    (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).send(`Coach modified with ID: ${coachID}`)
+    }
+  )
+}
 module.exports = {
     //Team
     getTeams,
@@ -201,8 +267,12 @@ module.exports = {
     getPlayersByTeam,
     createPlayer,
     deletePlayer,
-    updatePlayer
+    updatePlayer,
     //Manager
+    getCoachesByTeam,
+    createCoach,
+    updateCoach,
+    deleteCoach
     //Match
     //Ref
   }
