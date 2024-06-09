@@ -41,6 +41,15 @@ app.put('/coaches/:clubName/:coachID', db.updateCoach)
 app.delete('/coaches/:coachID', db.deleteCoach)
 
 
+app.get('/fixtures/:clubName', db.getFixturesByTeam)
+app.get('/fixtures/players/:club_name/:match_id', db.getPlayersByMatch)
+app.get('/fixtures/coaches/:club_name/:match_id', db.getCoachesByMatch)
+app.put('/fixtures/:match_id', db.submitPlayer)
+
+
+
+
+
 
 
 app.listen(port, () => {

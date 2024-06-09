@@ -104,4 +104,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // Initial call to populate the player list when the page loads
-  updatePlayerList(document.getElementById("club-select").value);
+updatePlayerList(document.getElementById("club-select").value);

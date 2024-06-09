@@ -249,6 +249,92 @@ const updateCoach = (request, response) => {
     }
   )
 }
+
+const getFixturesByTeam = (request, response) => {
+  const club_name = (request.params.clubName)
+  // Read the SQL query from the file
+  fs.readFile('./sql/getFixturesByTeam.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery,[club_name], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const getPlayersByMatch = (request, response) => {
+  const match_id = (request.params.match_id)
+  const club_name = (request.params.club_name)
+  // Read the SQL query from the file
+  fs.readFile('./sql/getPlayersByMatch.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery,[match_id,club_name], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const getCoachesByMatch = (request, response) => {
+  const match_id = (request.params.match_id)
+  const club_name = (request.params.club_name)
+  // Read the SQL query from the file
+  fs.readFile('./sql/getCoachesByMatch.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery,[match_id,club_name], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const submitPlayer = (request, response) => {
+  const match_id = (request.params.match_id)
+  // Read the SQL query from the file
+  fs.readFile('./sql/submit-player-squad.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery,[player_id,match_id,club_name,_event], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
 module.exports = {
     //Team
     getTeams,
@@ -272,8 +358,12 @@ module.exports = {
     getCoachesByTeam,
     createCoach,
     updateCoach,
-    deleteCoach
+    deleteCoach,
     //Match
+    getFixturesByTeam,
+    getPlayersByMatch,
+    getCoachesByMatch,
+    submitPlayer
     //Ref
   }
   

@@ -10,6 +10,7 @@ JOIN
     _flms.team_match m2 ON m.match_id = m2.match_id AND m.club_name != m2.club_name
 JOIN
     _flms.teams t ON t.club_name = m.club_name
+WHERE m.goal_scored is not null and m2.goal_scored is not null
 GROUP BY
     t.club_name
 ORDER BY

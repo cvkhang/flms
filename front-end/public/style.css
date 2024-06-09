@@ -10,6 +10,27 @@ h1 {
   font-size: 30px;
 }
 
+h2 {
+  font-family: "Radikal";
+  font-weight: medium;
+  font-size: 30px;
+  color: #510160;
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center;     /* Vertically center */
+}
+.random{
+  font-family: "Radikal";
+  font-weight: medium;
+  font-size: 30px;
+  color: #ffff;
+  display: flex;
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  justify-content: center; /* Horizontally center */
+  align-items: center;     /* Vertically center */
+}
+
+
 
 
 .header1 {
@@ -123,7 +144,7 @@ h1 {
 
 .main-nav {
   width: 250px;
-  height: 330px;
+  height: 300px;
   background-image: url("/front-end/img/background2.jpg");
   background-size: 500px 400px;
   background-position: -10px;
@@ -134,7 +155,25 @@ h1 {
   align-items: center;    /* Center items horizontally */
   justify-content: center; /* Center items vertically */
   border-radius: 20px;
-  padding: 20px; 
+  padding: 10px; 
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  position: relative
+}
+
+.team-manage-nav {
+  width: 250px;
+  height: 340px;
+  background-image: url("/front-end/img/background2.jpg");
+  background-size: 500px 400px;
+  background-position: -10px;
+  margin: 150px;
+  text-align: center;
+  display: flex;          /* Enable Flexbox for the navigation menu */
+  flex-direction: column; /* Arrange items vertically */
+  align-items: center;    /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  border-radius: 20px;
+  padding: 10px; 
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   position: relative
 }
@@ -360,6 +399,75 @@ a {
   background-color: #3c0148; /* Darker red on hover */
 }
 
+.coach-function {
+  display: flex;          /* Enable Flexbox for the navigation menu */
+  align-items: center;    /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  margin: 30px;
+}
+
+.add-coach {
+  margin: 30px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth color transition */
+  background-color: #510160;
+  border-radius: 12px;  
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: block;
+  text-decoration: none;
+  color: #ffff;
+  font-family: 'Radikal';
+  font-weight: bold;
+}
+
+.add-coach:hover {
+  background-color: #3c0148; /* Darker red on hover */
+}
+
+.update-coach {
+  margin: 30px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth color transition */
+  background-color: #510160;
+  border-radius: 12px;  
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: block;
+  text-decoration: none;
+  color: #ffff;
+  font-family: 'Radikal';
+  font-weight: bold;
+}
+
+.update-coach:hover {
+  background-color: #3c0148; /* Darker red on hover */
+}
+
+.delete-coach {
+  margin: 30px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth color transition */
+  background-color: #510160;
+  display: block;
+  text-decoration: none;
+  color: #ffff;
+  font-family: 'Radikal';
+  font-weight: bold;
+  border-radius: 12px;  
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.delete-coach:hover {
+  background-color: #3c0148; /* Darker red on hover */
+}
+
 /* Basic Modal Styling */
 .modal {
   display: none; 
@@ -475,7 +583,241 @@ a {
   font-family: 'Radikal';
 }
 
+#addCoachForm button[type="submit"] {
+  background-color: #510160; /* Blue background */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Radikal';
+}
 
+#updateCoachForm button[type="submit"] {
+  background-color: #510160; /* Blue background */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Radikal';
+}
+
+#deleteCoachForm button[type="submit"] {
+  background-color: #510160; /* Blue background */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Radikal';
+}
+
+.fixtures-table {
+  width: 80%; /* Or set a specific width */
+  border-collapse: collapse; /* Remove extra spacing between cells */
+  margin: 20px auto; /* Center the table with some margin */
+  font-family: "Radikal"; /* Consistent font for the table */
+  table-layout: fixed; /* This is the key addition */
+  background-color: #ffffff;
+  border-radius: 12px;  
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+
+
+.fixtures-table th, .fixtures-table td {
+  padding: 8px;
+  text-align: center;
+  overflow: hidden; /* Prevent content from overflowing the cell */
+  text-overflow: ellipsis; /* Add ellipsis (...) if content is too long */
+  white-space: nowrap; /* Prevent text from wrapping */
+  color: #340040; /* Text color for headers */
+}
+
+.fixtures-table th {
+  background-color: #e1e0e0;
+}
+.fixtures-table th:nth-child(2){
+  text-align: left;
+}
+.fixtures-table th:first-child{
+  border-top-left-radius: 12px;  
+}
+.fixtures-table th:last-child{
+  border-top-right-radius: 12px;  
+}
+ 
+
+.fixtures-table td:nth-child(2),
+.fixtures-table td:nth-child(3),
+.fixtures-table th:nth-child(2){
+  text-align: left;
+}
+
+.fixtures-table th:nth-child(2){
+  padding-left: 30px;
+}
+.fixtures-table td:nth-child(6){
+  text-align: right;
+  padding-right: 60px;
+}
+.fixtures-table td:nth-child(5){
+  text-align: right;
+  padding-right: 30px;
+}
+
+.fixtures-table td:nth-child(4),
+.fixtures-table th:nth-child(4),
+.fixtures-table th:nth-child(5),
+.fixtures-table th:nth-child(6){
+  text-align: center;
+}
+
+
+.fixtures-table td:nth-child(3),
+.fixtures-table td:nth-child(2),
+.fixtures-table td:nth-child(1) {
+  font-weight: bold; 
+}
+
+.fixtures-table tr:last-child td:first-child{
+  border-bottom-left-radius: 12px;
+}
+.fixtures-table tr:last-child td:last-child{
+  border-bottom-right-radius: 12px;
+}
+
+/* Table Row Hover Effect */
+.fixtures-table tr:hover {
+  background-color: #e4e2e2;
+  border-radius: 12px;
+}
+
+#match-select {
+  width: 200px;   
+  padding: 10px;  
+  border: 1px solid #ccc;
+  border-radius: 5px;  
+  appearance: none; /* Remove default styles */
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='12'%20height='12'%20viewBox='0%200%2012%2012'%3E%3Cpath%20d='M10.293%203.293L6%207.586%201.707%203.293A1%201%200%200%200%20.293%204.707l5%205a1%201%200%200%200%201.414%200l5-5a1%201%200%201%200-1.414-1.414z'%20fill='%23555'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center; 
+  background-size: 12px 12px; /* Adjust the arrow size if needed */
+  font-family: 'Radikal';
+  font-weight: bold;
+}
+
+#match-select:focus {
+  outline: none;   
+  border-color: #5a6268; 
+}
+
+.match-menu{
+  display: flex;          /* Enable Flexbox for the navigation menu */
+  align-items: center;    /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.label {
+  font-family: 'Radikal';
+  color: #ffff;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.players-list-table {
+  width: 80%; /* Or set a specific width */
+  border-collapse: collapse; /* Remove extra spacing between cells */
+  margin: 20px auto; /* Center the table with some margin */
+  font-family: "Radikal"; /* Consistent font for the table */
+  table-layout: fixed; /* This is the key addition */
+  background-color: #ffffff;
+  border-radius: 12px;  
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.players-list-table th, .players-list-table td {
+  padding: 8px;
+  text-align: center;
+  overflow: hidden; /* Prevent content from overflowing the cell */
+  text-overflow: ellipsis; /* Add ellipsis (...) if content is too long */
+  white-space: nowrap; /* Prevent text from wrapping */
+  color: #340040; /* Text color for headers */
+}
+
+.players-list-table th {
+  background-color: #e1e0e0;
+}
+.players-list-table th:first-child{
+  border-top-left-radius: 12px;  
+}
+.players-list-table th:last-child{
+  border-top-right-radius: 12px;  
+} 
+
+.players-list-table tr:last-child td:first-child{
+  border-bottom-left-radius: 12px;
+}
+.players-list-table tr:last-child td:last-child{
+  border-bottom-right-radius: 12px;
+}
+
+/* Table Row Hover Effect */
+.players-list-table tr:hover {
+  background-color: #e4e2e2;
+  border-radius: 12px;
+}
+
+.coaches-list-table {
+  width: 80%; /* Or set a specific width */
+  border-collapse: collapse; /* Remove extra spacing between cells */
+  margin: 20px auto; /* Center the table with some margin */
+  font-family: "Radikal"; /* Consistent font for the table */
+  table-layout: fixed; /* This is the key addition */
+  background-color: #ffffff;
+  border-radius: 12px;  
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.coaches-list-table th, .coaches-list-table td {
+  padding: 8px;
+  text-align: center;
+  overflow: hidden; /* Prevent content from overflowing the cell */
+  text-overflow: ellipsis; /* Add ellipsis (...) if content is too long */
+  white-space: nowrap; /* Prevent text from wrapping */
+  color: #340040; /* Text color for headers */
+}
+
+.coaches-list-table th {
+  background-color: #e1e0e0;
+}
+.coaches-list-table th:first-child{
+  border-top-left-radius: 12px;  
+}
+.coaches-list-table th:last-child{
+  border-top-right-radius: 12px;  
+} 
+
+.coaches-list-table tr:last-child td:first-child{
+  border-bottom-left-radius: 12px;
+}
+.coaches-list-table tr:last-child td:last-child{
+  border-bottom-right-radius: 12px;
+}
+
+/* Table Row Hover Effect */
+.coaches-list-table tr:hover {
+  background-color: #e4e2e2;
+  border-radius: 12px;
+}
 
 /* .roboto-light {
   font-family: "Roboto", sans-serif;
