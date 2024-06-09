@@ -181,7 +181,7 @@ h2 {
 
 .nav-title {
   position:absolute;    /* Position the title relative to the .main-nav container */
-  top: 10px;             /* Set the top position to 20px */
+  top: 0px;             /* Set the top position to 20px */
   text-align: center;    /* Center the text horizontally */
   margin-bottom: 15px; /* Add some space below the title */
   color: white;          /* Set the text color to contrast with the background */
@@ -502,7 +502,7 @@ a {
   width: 30%;
 }
 
-.close-button, .close-button2, .close-button3{
+.close-button, .close-button2, .close-button3, .close-button4{
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -724,6 +724,43 @@ a {
   justify-content: center; /* Center items vertically */
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+
+.week-match{
+  display: flex; /* or inline-flex if needed */
+  align-items: center;
+  justify-content: center;
+}
+
+#week-select {
+  width: 200px;   
+  padding: 10px;  
+  border: 1px solid #ccc;
+  border-radius: 5px;  
+  appearance: none; /* Remove default styles */
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='12'%20height='12'%20viewBox='0%200%2012%2012'%3E%3Cpath%20d='M10.293%203.293L6%207.586%201.707%203.293A1%201%200%200%200%20.293%204.707l5%205a1%201%200%200%200%201.414%200l5-5a1%201%200%201%200-1.414-1.414z'%20fill='%23555'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center; 
+  background-size: 12px 12px; /* Adjust the arrow size if needed */
+  font-family: 'Radikal';
+  font-weight: bold;
+}
+
+#week-select:focus {
+  outline: none;   
+  border-color: #5a6268; 
+}
+
+.week-menu{
+  display: flex;          /* Enable Flexbox for the navigation menu */
+  align-items: center;    /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-right: 40px;
 }
 
 .label {

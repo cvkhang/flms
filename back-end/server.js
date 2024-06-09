@@ -42,9 +42,18 @@ app.delete('/coaches/:coachID', db.deleteCoach)
 
 
 app.get('/fixtures/:clubName', db.getFixturesByTeam)
+app.get('/fixtures/week/:week', db.getFixturesByWeek)
+app.get('/fixtures/event/:match_id', db.getEventByMatch)
+app.delete('/fixtures/event/:match_id/:player_id/:event/:event_half/:event_time', db.unsubmitEvent)
+app.post('/fixtures/event', db.submitEvent)
 app.get('/fixtures/players/:club_name/:match_id', db.getPlayersByMatch)
 app.get('/fixtures/coaches/:club_name/:match_id', db.getCoachesByMatch)
-app.put('/fixtures/:match_id', db.submitPlayer)
+app.post('/fixtures/players', db.submitPlayer)
+app.delete('/fixtures/players/:matchID/:playerID', db.unsubmitPlayer)
+app.post('/fixtures/coach', db.submitCoach)
+app.delete('/fixtures/coach/:matchID/:coachID', db.unsubmitCoach)
+
+
 
 
 

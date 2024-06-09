@@ -1,5 +1,6 @@
 require('dotenv').config(); // Load environment variables
 const Pool = require('pg').Pool;
+const { match } = require('assert');
 const fs = require('fs');
 
 
@@ -316,7 +317,7 @@ const getCoachesByMatch = (request, response) => {
 };
 
 const submitPlayer = (request, response) => {
-  const match_id = (request.params.match_id)
+  const {match_id,player_id, club_name, _event } = request.body
   // Read the SQL query from the file
   fs.readFile('./sql/submit-player-squad.sql', 'utf8', (err, sqlQuery) => {
     if (err) {
@@ -324,7 +325,6 @@ const submitPlayer = (request, response) => {
       response.status(500).json({ error: 'Internal server error' });
       return;
     }
-
     pool.query(sqlQuery,[player_id,match_id,club_name,_event], (error, results) => {
       if (error) {
         console.error('Error executing query:', error);
@@ -335,6 +335,128 @@ const submitPlayer = (request, response) => {
     });
   });
 };
+
+const unsubmitPlayer = (request, response) => {
+  const player_id = (request.params.playerID)
+  const match_id = (request.params.matchID)
+
+  pool.query('select _flms.delete_player_squad($1,$2)', [player_id,match_id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`Player deleted: ${player_id}`)
+  })
+}
+
+const submitCoach = (request, response) => {
+  const {match_id,coach_id, club_name} = request.body
+  // Read the SQL query from the file
+  fs.readFile('./sql/submit-coach-squad.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    pool.query(sqlQuery,[match_id,club_name,coach_id], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const unsubmitCoach = (request, response) => {
+  const coach_id = (request.params.coachID)
+  const match_id = (request.params.matchID)
+
+  pool.query('select _flms.delete_coach_squad($1,$2)', [coach_id,match_id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`Coach deleted: ${coach_id}`)
+  })
+}
+
+const getFixturesByWeek = (request, response) => {
+  const week = parseInt(request.params.week)
+  // Read the SQL query from the file
+  fs.readFile('./sql/getFixturesByWeek.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery,[week], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const getEventByMatch = (request, response) => {
+  const match_id = (request.params.match_id)
+  // Read the SQL query from the file
+  fs.readFile('./sql/getEventByMatch.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery,[match_id], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const submitEvent = (request, response) => {
+  const {match_id,player_id, _event, event_half, event_time} = request.body
+  // Read the SQL query from the file
+  fs.readFile('./sql/submit-event.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    pool.query(sqlQuery,[match_id,player_id, _event, event_half, event_time], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const unsubmitEvent = (request, response) => {
+  const match_id = (request.params.match_id)
+  const player_id = (request.params.player_id)
+  const _event = (request.params.event)
+  const event_half = (request.params.event_half)
+  const event_time = (request.params.event_time)
+
+  pool.query('select _flms.delete_event($1,$2,$3,$4,$5)', [match_id,player_id,_event,event_half,event_time], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`Coach deleted: ${coach_id}`)
+  })
+}
+
 module.exports = {
     //Team
     getTeams,
@@ -363,7 +485,14 @@ module.exports = {
     getFixturesByTeam,
     getPlayersByMatch,
     getCoachesByMatch,
-    submitPlayer
+    submitPlayer,
+    unsubmitPlayer,
+    submitCoach,
+    unsubmitCoach,
+    getFixturesByWeek,
+    getEventByMatch,
+    submitEvent,
+    unsubmitEvent
     //Ref
   }
   

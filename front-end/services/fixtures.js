@@ -2,10 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
 const clubSelect = document.getElementById("club-select");
 const fixtureList = document.querySelector(".fixtures-table tbody");
 const fixtureTable = document.querySelector(".fixtures-table");
+const matchMenu = document.querySelector(".match-menu");
 
 clubSelect.addEventListener("change", () => {
     const selectedClubValue = clubSelect.value; // Get the selected club value (ars, avl, etc.)
 
+    
     if (selectedClubValue) {
       fixtureTable.style.display = 'table';
       console.log(selectedClubValue)

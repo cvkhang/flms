@@ -7,7 +7,7 @@ const playersHeader = document.querySelector(".hp:first-child");
 const coachesHeader = document.querySelector(".hp:last-child");
 const playersTbody = playersTable.querySelector("tbody");
 const coachesTbody = coachesTable.querySelector("tbody");
-
+const fixturesHeader = document.querySelector(".random");
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Check if matchMenu is null before setting display
         if(matchMenu) { 
           matchMenu.style.display = "flex";
+          fixturesHeader.style.display = "flex";
         }else {
           console.error("matchMenu element not found!");
         }
@@ -125,18 +126,19 @@ document.addEventListener("DOMContentLoaded", () => {
         // Gather form data 
         const playerID = parseInt(document.getElementById("playerID").value);
         const clubName = clubSelect.value; // Get selected club name from the dropdown
-        const event = document.getElementById("event").value;
+        const _event = document.getElementById("event").value;
 
         // Prepare data to send to the API
         const playerData = {
+            match_id: matchSelect.value,
             player_id: playerID,
             club_name: clubName,
-            _event: event
+            _event: _event
         };
 
         // Send the player data to the API
-        fetch(`http://localhost:3000/fixtures/${matchSelect}`, { 
-            method: 'PUT',
+        fetch(`http://localhost:3000/fixtures/players`, { 
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -154,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(data); 
 
             addPlayerModal.style.display = "none"; 
-            updatePlayerList(clubName);  // Update the player list after adding
+            updatePlayerList(matchSelect);  // Update the player list after adding
         })
         .catch(error => {
             console.error('Error adding player:', error); 
@@ -163,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const deletePlayerModal = document.getElementById("deletePlayerModal");
     const deletePlayerBtn = document.querySelector(".delete-player");
-    const closeBtn3 = document.querySelector(".close-button3");
+    const closeBtn2 = document.querySelector(".close-button2");
     const deletePlayerForm = document.getElementById("deletePlayerForm");
   
     // Event listeners for opening and closing the modal
@@ -171,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         deletePlayerModal.style.display = "block";
     });
   
-    closeBtn3.addEventListener("click", () => {
+    closeBtn2.addEventListener("click", () => {
         deletePlayerModal.style.display = "none";
     });
   
@@ -181,11 +183,11 @@ document.addEventListener("DOMContentLoaded", () => {
   
         // Gather form data 
         const playerID = parseInt(document.getElementById("playerName3").value);
-        const clubName = clubSelect.value; // Get selected club name from the dropdown
+        const matchID = matchSelect.value; // Get selected club name from the dropdown
     
   
         // Send the player data to the API
-        fetch(`http://localhost:3000/players/${playerID}`, { 
+        fetch(`http://localhost:3000/fixtures/players/${matchID}/${playerID}`, { 
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -201,56 +203,172 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(data); 
   
             deletePlayerModal.style.display = "none"; 
-            deletePlayerList(clubName);  // delete the player list after adding
+            updatePlayerList(matchSelect);  // delete the player list after adding
         })
         .catch(error => {
             console.error('Error adding player:', error); 
         });
     });
 
+    const addCoachModal = document.getElementById("addCoachModal");
+    const addCoachBtn = document.querySelector(".add-coach");
+    const closeBtn3 = document.querySelector(".close-button3");
+    const addCoachForm = document.getElementById("addCoachForm");
+
+    // Event listeners for opening and closing the modal
+    addCoachBtn.addEventListener("click", () => {
+        addCoachModal.style.display = "block";
+    });
+
+    closeBtn3.addEventListener("click", () => {
+        addCoachModal.style.display = "none";
+    });
+
+    // Handle form submission
+    addCoachForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        // Gather form data 
+        const coachID = parseInt(document.getElementById("coachID").value);
+        const clubName = clubSelect.value; // Get selected club name from the dropdown
+
+        // Prepare data to send to the API
+        const coachData = {
+            match_id: matchSelect.value,
+            coach_id: coachID,
+            club_name: clubName,
+        };
+
+        // Send the coach data to the API
+        fetch(`http://localhost:3000/fixtures/coach`, { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(coachData)
+        })
+
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.text(); 
+        })
+
+        .then(data => {
+            console.log(data); 
+
+            addCoachModal.style.display = "none"; 
+            updateCoachList(matchSelect);  // Update the coach list after adding
+        })
+        .catch(error => {
+            console.error('Error adding coach:', error); 
+        });
+    });
+
+    const deleteCoachModal = document.getElementById("deleteCoachModal");
+    const deleteCoachBtn = document.querySelector(".delete-coach");
+    const closeBtn4 = document.querySelector(".close-button4");
+    const deleteCoachForm = document.getElementById("deleteCoachForm");
+  
+    // Event listeners for opening and closing the modal
+    deleteCoachBtn.addEventListener("click", () => {
+        deleteCoachModal.style.display = "block";
+    });
+  
+    closeBtn4.addEventListener("click", () => {
+        deleteCoachModal.style.display = "none";
+    });
+  
+    // Handle form submission
+    deleteCoachForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+  
+        // Gather form data 
+        const coachID = parseInt(document.getElementById("coachID2").value);
+        const matchID = matchSelect.value; // Get selected club name from the dropdown
+    
+  
+        // Send the coach data to the API
+        fetch(`http://localhost:3000/fixtures/coach/${matchID}/${coachID}`, { 
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.text(); 
+        })
+        .then(data => {
+            console.log(data); 
+  
+            deleteCoachModal.style.display = "none"; 
+            updateCoachList(matchSelect);  // delete the coach list after adding
+        })
+        .catch(error => {
+            console.error('Error adding coach:', error); 
+        });
+    });
 });
     
 
-function updatePlayerList(clubName) {
-    const playerList = document.querySelector(".players-table tbody"); 
+function updatePlayerList(matchSelect) {
+    const selectedMatchId = matchSelect.value;
+    const selectedClubName = document.getElementById("club-select").value; 
 
-    if (clubName) {
-    fetch(`http://localhost:3000/players/${clubName}`) 
-        .then(response => response.json())
-        .then(players => {
-        playerList.innerHTML = ""; 
+    if (selectedMatchId) {
+        // Show the tables
+        playersTable.style.display = 'table';
+        coachesTable.style.display = 'table';
+
+        // Fetch Players Data
+        fetch(`http://localhost:3000/fixtures/players/${selectedClubName}/${selectedMatchId}`)
+            .then(response => response.json())
+            .then(players => {
+                const playerTableBody = document.getElementById("player-table-body");
+                playerTableBody.innerHTML = ""; // Clear existing rows
         
-        players.forEach(player => {
-            // 1. Create Table Row
-                    const row = playerList.insertRow();
-                    
-                    // 2. Format and Insert Data
-                    const dataToInsert = [
-                        player.player_id, 
-                        player.player_name, 
-                        player.shirt_number, 
-                        player.position,
-                        new Date(player.date_of_birth).toLocaleDateString(),  // Format D.O.B.
-                        new Date(player.begin).toLocaleDateString(),
-                        new Date(player.end).toLocaleDateString() 
-                    ];
-                    
-                    dataToInsert.forEach(data => {
-                        const cell = row.insertCell();
-                        cell.textContent = data;
-                    });
-        });
-        })
-        .catch(error => {
-        console.error("Error fetching players:", error);
-        playerList.innerHTML = `<tr><td colspan="6">Error loading players</td></tr>`;
-        });
-    } else {
-    playerList.innerHTML = "";
+                players.forEach(player => {
+                    const row = playerTableBody.insertRow();
+                    row.insertCell().textContent = player.match_id;
+                    row.insertCell().textContent = player.player_id !== null ? player.player_id : "N/A";
+                    row.insertCell().textContent = player.event;
+                    // Add more cells for other player attributes if needed
+                });            
+            });
     }
 }
-// Initial call to populate the player list when the page loads
-updatePlayerList(document.getElementById("club-select").value);
+
+function updateCoachList(matchSelect) {
+    const selectedMatchId = matchSelect.value;
+    const selectedClubName = document.getElementById("club-select").value; 
+
+    if (selectedMatchId) {
+        // Show the tables
+        playersTable.style.display = 'table';
+        coachesTable.style.display = 'table';
+
+        // Fetch Coaches Data
+        fetch(`http://localhost:3000/fixtures/coaches/${selectedClubName}/${selectedMatchId}`)
+            .then(response => response.json())
+            .then(coaches => {
+                const coachTableBody = document.getElementById("coach-table-body");
+                coachTableBody.innerHTML = ""; // Clear existing rows
+        
+                coaches.forEach(coach => {
+                    const row = coachTableBody.insertRow();
+                    row.insertCell().textContent = coach.match_id;
+                    row.insertCell().textContent = coach.coach_id !== null ? coach.coach_id : "N/A";
+                    row.insertCell().textContent = coach.event;
+                    // Add more cells for other coach attributes if needed
+                });
+            });
+    }
+}
+
 
 
 

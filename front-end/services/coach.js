@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const clubSelect = document.getElementById("club-select");
     const coachList = document.querySelector(".players-table tbody");
+    const coachTable = document.querySelector(".players-table");
     
     clubSelect.addEventListener("change", () => {
         const selectedClubValue = clubSelect.value; // Get the selected club value (ars, avl, etc.)
     
         if (selectedClubValue) {
+          coachTable.style.display = "table";
           console.log(selectedClubValue)
             fetch(`http://localhost:3000/coaches/${selectedClubValue}`) // Construct the API URL using the value
                 .then(response => response.json())
