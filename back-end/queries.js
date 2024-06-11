@@ -522,27 +522,18 @@ const getRefList = (request, response) => {
 const addRef = (request, response) => {
   const {ref_id,ref_name} = request.body
   // Read the SQL query from the file
-  fs.readFile('./sql/addRef.sql', 'utf8', (err, sqlQuery) => {
-    if (err) {
-      console.error('Error reading SQL file:', err);
-      response.status(500).json({ error: 'Internal server error' });
-      return;
+  pool.query('insert into _flms.referees(ref_id,ref_name) values ($1,$2)', [ref_id,ref_name], (error, results) => {
+    if (error) {
+      throw error
     }
-    pool.query(sqlQuery,[ref_id,ref_name], (error, results) => {
-      if (error) {
-        console.error('Error executing query:', error);
-        response.status(500).json({ error: 'Internal server error' });
-        return;
-      }
-      response.status(200).json(results.rows);
-    });
-  });
+    response.status(200).send(`Ref deleted: ${ref_id}`)
+  })
 };
 
 const deleteRef = (request, response) => {
   const ref_id = (request.params.ref_id)
 
-  pool.query('delete from _flms.referee where ref_id = $1', [ref_id], (error, results) => {
+  pool.query('delete from _flms.referees where ref_id = $1', [ref_id], (error, results) => {
     if (error) {
       throw error
     }
@@ -593,15 +584,15 @@ const addRefSchedule = (request, response) => {
 
 const deleteRefSchedule = (request, response) => {
   const ref_id = (request.params.ref_id);
-  const match_id = (request.params.ref_id);
+  const match_id = (request.params.match_id);
 
   pool.query('delete from _flms.ref_match where ref_id = $1 and match_id = $2', [ref_id,match_id], (error, results) => {
     if (error) {
       throw error
     }
     response.status(200).send(`Ref deleted: ${ref_id}`)
-  })
-}
+  });
+};
 
 
 module.exports = {

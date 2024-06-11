@@ -35,7 +35,7 @@ h2 {
   font-size: 30px;
   color: #510160;
   display: flex;
-  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   justify-content: center; /* Horizontally center */
   align-items: center;     /* Vertically center */
 }
@@ -444,7 +444,7 @@ a {
   margin: 30px;
 }
 
-.add-player {
+.add-player,.add-player1{
   margin: 30px;
   padding: 10px 20px;
   border: none;
@@ -461,7 +461,7 @@ a {
   font-weight: bold;
 }
 
-.add-player:hover {
+.add-player:hover, .add-player1:hover {
   background-color: #3c0148; /* Darker red on hover */
 }
 
@@ -486,7 +486,7 @@ a {
   background-color: #3c0148; /* Darker red on hover */
 }
 
-.delete-player {
+.delete-player, .delete-player1 {
   margin: 30px;
   padding: 10px 20px;
   border: none;
@@ -502,7 +502,7 @@ a {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
-.delete-player:hover {
+.delete-player:hover, .delete-player1:hover {
   background-color: #3c0148; /* Darker red on hover */
 }
 
@@ -609,7 +609,7 @@ a {
   width: 30%;
 }
 
-.close-button, .close-button2, .close-button3, .close-button4{
+.close-button,.close-button1, .close-button2, .close-button3, .close-button4{
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -1005,7 +1005,7 @@ a {
   padding: 10px; 
   width: fit-content;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-  position: relative
+  position: relative;
 }
 
 
