@@ -235,6 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function updatePlayerList(matchSelect) {
     const selectedMatchId = matchSelect.value;
     const selectedWeek = document.getElementById("week-select").value; 
+    const matchResultDiv = document.getElementById('match-result');
 
     if (selectedMatchId) {
         // Show the tables
@@ -268,8 +269,19 @@ function updatePlayerList(matchSelect) {
                         row.classList.add("two-half-row");
                         eventHalfFound = true; 
                     }
-                });            
+                });
+                        
             });
+            fetch(`http://localhost:3000/fixtures/result/${selectedMatchId}`)
+                .then(response => response.json())
+                .then(result => {
+                    // 3. Display the match result (customize this part)
+                    matchResultDiv.innerHTML = `
+                <div class=random2>${result[0].team1} ${result[0].goal1} - ${result[0].goal2} ${result[0].team2}</div>
+`; 
+
+            });
+            
     }
 }
 
