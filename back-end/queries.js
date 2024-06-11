@@ -453,9 +453,30 @@ const unsubmitEvent = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`Coach deleted: ${coach_id}`)
+    response.status(200).send(`Event deleted: ${_event}`)
   })
 }
+
+const getMatchResult = (request, response) => {
+  const match_id = (request.params.match_id)
+  // Read the SQL query from the file
+  fs.readFile('./sql/getMatchResult.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery,[match_id], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
 
 module.exports = {
     //Team
@@ -492,7 +513,8 @@ module.exports = {
     getFixturesByWeek,
     getEventByMatch,
     submitEvent,
-    unsubmitEvent
+    unsubmitEvent,
+    getMatchResult
     //Ref
   }
   

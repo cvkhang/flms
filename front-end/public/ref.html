@@ -1,28 +1,42 @@
-#week-select {
-  width: 200px;   
-  padding: 10px;  
-  border: 1px solid #ccc;
-  border-radius: 5px;  
-  appearance: none; /* Remove default styles */
-  -webkit-appearance: none; 
-  -moz-appearance: none; 
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='12'%20height='12'%20viewBox='0%200%2012%2012'%3E%3Cpath%20d='M10.293%203.293L6%207.586%201.707%203.293A1%201%200%200%200%20.293%204.707l5%205a1%201%200%200%200%201.414%200l5-5a1%201%200%201%200-1.414-1.414z'%20fill='%23555'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center; 
-  background-size: 12px 12px; /* Adjust the arrow size if needed */
-  font-family: 'Radikal';
-  font-weight: bold;
+.players-list-table2 {
+  width: 80%; /* Or set a specific width */
+  border-collapse: collapse; /* Remove extra spacing between cells */
+  margin: 20px auto; /* Center the table with some margin */
+  font-family: "Radikal"; /* Consistent font for the table */
+  table-layout: fixed; /* This is the key addition */
+  background-color: #ffffff;
+  border-radius: 12px;  
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
 }
 
-#week-select:focus {
-  outline: none;   
-  border-color: #5a6268; 
+.players-list-table2 th, .players-list-table2 td {
+  padding: 8px;
+  text-align: center;
+  overflow: hidden; /* Prevent content from overflowing the cell */
+  text-overflow: ellipsis; /* Add ellipsis (...) if content is too long */
+  white-space: nowrap; /* Prevent text from wrapping */
+  color: #340040; /* Text color for headers */
 }
 
-.week-menu{
-  display: flex;          /* Enable Flexbox for the navigation menu */
-  align-items: center;    /* Center items horizontally */
-  justify-content: center; /* Center items vertically */
-  margin-top: 40px;
-  margin-bottom: 40px;
+.players-list-table2 th {
+  background-color: #e1e0e0;
+}
+.players-list-table2 th:first-child{
+  border-top-left-radius: 12px;  
+}
+.players-list-table2 th:last-child{
+  border-top-right-radius: 12px;  
+} 
+
+.players-list-table2 tr:last-child td:first-child{
+  border-bottom-left-radius: 12px;
+}
+.players-list-table2 tr:last-child td:last-child{
+  border-bottom-right-radius: 12px;
+}
+
+/* Table Row Hover Effect */
+.players-list-table2 tr:hover {
+  background-color: #e4e2e2;
+  border-radius: 12px;
 }

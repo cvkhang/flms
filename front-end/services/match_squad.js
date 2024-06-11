@@ -72,13 +72,20 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(players => {
                 const playerTableBody = document.getElementById("player-table-body");
                 playerTableBody.innerHTML = ""; // Clear existing rows
-        
+                let subFound = false; // Flag to track if we've found the "start" event
+
                 players.forEach(player => {
                     const row = playerTableBody.insertRow();
                     row.insertCell().textContent = player.match_id;
                     row.insertCell().textContent = player.player_id !== null ? player.player_id : "N/A";
+                    row.insertCell().textContent = player.player_name !== null ? player.player_name : "N/A";
+                    row.insertCell().textContent = player.position !== null ? player.position : "N/A";
                     row.insertCell().textContent = player.event;
                     // Add more cells for other player attributes if needed
+                    if (!subFound && player.event === "sub") {
+                        row.classList.add("two-half-row");
+                        subFound = true; 
+                    }
                 });            
             });
 
@@ -93,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const row = coachTableBody.insertRow();
                     row.insertCell().textContent = coach.match_id;
                     row.insertCell().textContent = coach.coach_id !== null ? coach.coach_id : "N/A";
+                    row.insertCell().textContent = coach.coach_name !== null ? coach.coach_name : "N/A";
                     row.insertCell().textContent = coach.event;
                     // Add more cells for other coach attributes if needed
                 });
@@ -330,13 +338,20 @@ function updatePlayerList(matchSelect) {
             .then(players => {
                 const playerTableBody = document.getElementById("player-table-body");
                 playerTableBody.innerHTML = ""; // Clear existing rows
-        
+                let subFound = false; // Flag to track if we've found the "start" event
+
                 players.forEach(player => {
                     const row = playerTableBody.insertRow();
                     row.insertCell().textContent = player.match_id;
                     row.insertCell().textContent = player.player_id !== null ? player.player_id : "N/A";
+                    row.insertCell().textContent = player.player_name !== null ? player.player_name : "N/A";
+                    row.insertCell().textContent = player.position !== null ? player.position : "N/A";
                     row.insertCell().textContent = player.event;
                     // Add more cells for other player attributes if needed
+                    if (!subFound && player.event === "sub") {
+                        row.classList.add("two-half-row");
+                        subFound = true; 
+                    }
                 });            
             });
     }
@@ -351,6 +366,7 @@ function updateCoachList(matchSelect) {
         playersTable.style.display = 'table';
         coachesTable.style.display = 'table';
 
+
         // Fetch Coaches Data
         fetch(`http://localhost:3000/fixtures/coaches/${selectedClubName}/${selectedMatchId}`)
             .then(response => response.json())
@@ -362,6 +378,7 @@ function updateCoachList(matchSelect) {
                     const row = coachTableBody.insertRow();
                     row.insertCell().textContent = coach.match_id;
                     row.insertCell().textContent = coach.coach_id !== null ? coach.coach_id : "N/A";
+                    row.insertCell().textContent = coach.coach_name !== null ? coach.coach_name : "N/A";
                     row.insertCell().textContent = coach.event;
                     // Add more cells for other coach attributes if needed
                 });

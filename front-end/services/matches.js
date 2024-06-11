@@ -45,13 +45,17 @@ document.addEventListener("DOMContentLoaded", () => {
     //////
     const matchSelect = document.getElementById("match-select");
     const playersTable = document.querySelector('.players-list-table');
+    const eventLog = document.querySelector('.random');
+    const matchResultDiv = document.getElementById('match-result');
 
     matchSelect.addEventListener('change', () => {
     const selectedMatchId = matchSelect.value;
 
     if (selectedMatchId) {
         // Show the tables
-        playersTable.style.display = 'table';
+        playersTable.style.display = "table";
+        eventLog.style.display = "flex";
+
 
         // Fetch Players Data
         fetch(`http://localhost:3000/fixtures/event/${selectedMatchId}`)
@@ -59,15 +63,28 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(players => {
                 const playerTableBody = document.getElementById("player-table-body");
                 playerTableBody.innerHTML = ""; // Clear existing rows
-        
+                
+                let startEventFound = false; // Flag to track if we've found the "start" event
+                let eventHalfFound = false; // Flag to track if we've found the "start" event
+
                 players.forEach(player => {
                     const row = playerTableBody.insertRow();
                     row.insertCell().textContent = player.club_name;
                     row.insertCell().textContent = player.player_id !== null ? player.player_id : "N/A";
+                    row.insertCell().textContent = player.player_name !== null ? player.player_name : "N/A";
                     row.insertCell().textContent = player.event;
-                    row.insertCell().textContent = player.event_half !== null ? player.player_id : "N/A";
-                    row.insertCell().textContent = player.event_time !== null ? player.player_id : "N/A";
+                    row.insertCell().textContent = player.event_half !== null ? player.event_half : "N/A";
+                    row.insertCell().textContent = player.event_time !== null ? player.event_time : "N/A";
                     // Add more cells for other player attributes if needed
+
+                    if (!startEventFound && player.event === "start") {
+                        row.classList.add("start-event-row");
+                        startEventFound = true; 
+                    }
+                    if (!eventHalfFound && player.event_half === 2) {
+                        row.classList.add("two-half-row");
+                        eventHalfFound = true; 
+                    }
                 });            
             });
 
@@ -76,6 +93,30 @@ document.addEventListener("DOMContentLoaded", () => {
             playersTable.style.display = 'none';
         }
     });
+
+    // 2. Handle dropdown selection change
+    matchSelect.addEventListener('change', () => {
+        const selectedMatchId = matchSelect.value;
+        if (selectedMatchId) {
+            matchResultDiv.style.display = "flex";
+            fetch(`http://localhost:3000/fixtures/result/${selectedMatchId}`)
+                .then(response => response.json())
+                .then(result => {
+                    // 3. Display the match result (customize this part)
+                    matchResultDiv.innerHTML = `
+    <div class=random2>${result[0].team1} ${result[0].goal1} - ${result[0].goal2} ${result[0].team2}</div>
+`; 
+
+                })
+                .catch(error => {
+                    console.error('Error fetching match result:', error);
+                    matchResultDiv.textContent = 'Error loading results.'; // Display error
+                });
+        } else {
+            matchResultDiv.innerHTML = ''; // Clear results if nothing is selected
+        }
+    });
+
 
     const addPlayerModal = document.getElementById("addPlayerModal");
     const addPlayerBtn = document.querySelector(".add-player");
@@ -166,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const event_time = parseFloat(document.getElementById("eventTime2").value);
   
         // Send the player data to the API
-        fetch(`http://localhost:3000/fixtures/event/${matchID}/${playerID}/${event}/${event_half}/${event_time}`, { 
+        fetch(`http://localhost:3000/fixtures/event/${match_id}/${playerID}/${_event}/${event_half}/${event_time}`, { 
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -193,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function updatePlayerList(matchSelect) {
     const selectedMatchId = matchSelect.value;
-    const selectedClubName = document.getElementById("club-select").value; 
+    const selectedWeek = document.getElementById("week-select").value; 
 
     if (selectedMatchId) {
         // Show the tables
@@ -205,15 +246,28 @@ function updatePlayerList(matchSelect) {
             .then(players => {
                 const playerTableBody = document.getElementById("player-table-body");
                 playerTableBody.innerHTML = ""; // Clear existing rows
-        
+                
+                let startEventFound = false; // Flag to track if we've found the "start" event
+                let eventHalfFound = false; // Flag to track if we've found the "start" event
+
                 players.forEach(player => {
                     const row = playerTableBody.insertRow();
                     row.insertCell().textContent = player.club_name;
                     row.insertCell().textContent = player.player_id !== null ? player.player_id : "N/A";
+                    row.insertCell().textContent = player.player_name !== null ? player.player_name : "N/A";
                     row.insertCell().textContent = player.event;
-                    row.insertCell().textContent = player.event_half !== null ? player.player_id : "N/A";
-                    row.insertCell().textContent = player.event_time !== null ? player.player_id : "N/A";
+                    row.insertCell().textContent = player.event_half !== null ? player.event_half : "N/A";
+                    row.insertCell().textContent = player.event_time !== null ? player.event_time : "N/A";
                     // Add more cells for other player attributes if needed
+
+                    if (!startEventFound && player.event === "start") {
+                        row.classList.add("start-event-row");
+                        startEventFound = true; 
+                    }
+                    if (!eventHalfFound && player.event_half === 2) {
+                        row.classList.add("two-half-row");
+                        eventHalfFound = true; 
+                    }
                 });            
             });
     }

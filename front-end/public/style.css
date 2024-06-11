@@ -29,6 +29,16 @@ h2 {
   justify-content: center; /* Horizontally center */
   align-items: center;     /* Vertically center */
 }
+.random2{
+  font-family: "Radikal";
+  font-weight: bold;
+  font-size: 30px;
+  color: #510160;
+  display: flex;
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  justify-content: center; /* Horizontally center */
+  align-items: center;     /* Vertically center */
+}
 
 
 
@@ -813,6 +823,16 @@ a {
   border-radius: 12px;
 }
 
+.start-event-row {
+  border-top: 4px solid #c7c7c7; /* Example: Blue border */
+  /* Add other styles as desired */
+}
+
+.two-half-row{
+  border-top: 1px solid #c7c7c7; /* Example: Blue border */
+  /* Add other styles as desired */
+}
+
 .coaches-list-table {
   width: 80%; /* Or set a specific width */
   border-collapse: collapse; /* Remove extra spacing between cells */
@@ -855,6 +875,21 @@ a {
   background-color: #e4e2e2;
   border-radius: 12px;
 }
+
+.match-result { /* Style the area for displaying match results */
+  display: flex; /* Use inline-flex instead of flex */
+  align-items: center;    /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  margin-top: 20px;
+  background-color: #ffff;
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px; 
+  width: fit-content;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  position: relative
+}
+
 
 /* .roboto-light {
   font-family: "Roboto", sans-serif;
