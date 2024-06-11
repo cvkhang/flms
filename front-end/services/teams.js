@@ -1,31 +1,175 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const tableBody = document.querySelector('#league-table tbody');
+  const tableBody = document.querySelector('#team-table tbody');
 
-  // Fetch both sets of data simultaneously
-  Promise.all([
-    fetch('http://localhost:3000/teams').then(response => response.json()),
-    fetch('http://localhost:3000/teams/matchplayedbyteam').then(response => response.json())
-  ])
-  .then(([teamData, matchData]) => {
-    teamData.forEach(team => {
-      const row = tableBody.insertRow();
+  fetch(`http://localhost:3000/teams/info`) // Construct the API URL using the value
+            .then(response => response.json())
+            .then(players => {
+                tableBody.innerHTML = ""; 
 
-      // Find the corresponding match data for this team
-      const teamMatchData = matchData.find(m => m.club_name === team.club_name); // Assuming your data has team_id
+                players.forEach(player => {
+                  // 1. Create Table Row
+                  const row = tableBody.insertRow();
+                
+                  // 2. Format and Insert Data
+                  const dataToInsert = [
+                    player.club_code, 
+                    player.club_name, 
+                    player.stadium_name, 
+                    player.location,
+                    player.capacity,
+                  ];
+                
+                  dataToInsert.forEach(data => {
+                    const cell = row.insertCell();
+                    cell.textContent = data;
+                  });
+                });
+                
+            })
+            .catch(error => {
+                console.error("Error fetching players:", error);
+                tableBody.innerHTML = `<tr><td colspan="6">Error loading players</td></tr>`;
+            });
 
-      // Populate cells
-      row.insertCell().textContent = team.position;
-      row.insertCell().textContent = team.club_name;
-      row.insertCell().textContent = team.point;
-      row.insertCell().textContent = team.goal_difference;
-      row.insertCell().textContent = teamMatchData ? teamMatchData.played : '-';
-      row.insertCell().textContent = teamMatchData ? teamMatchData.won : '-';
-      row.insertCell().textContent = teamMatchData ? teamMatchData.drawn : '-';
-      row.insertCell().textContent = teamMatchData ? teamMatchData.lost : '-';
-    });
-  })
-  .catch(error => {
-    console.error('Error fetching data:', error);
-    // Display an error message to the user (optional)
+  const addPlayerModal = document.getElementById("addPlayerModal");
+  const addPlayerBtn = document.querySelector(".add-player");
+  const closeBtn = document.querySelector(".close-button");
+  const addPlayerForm = document.getElementById("addPlayerForm");
+
+  // Event listeners for opening and closing the modal
+  addPlayerBtn.addEventListener("click", () => {
+      addPlayerModal.style.display = "block";
   });
+
+  closeBtn.addEventListener("click", () => {
+      addPlayerModal.style.display = "none";
+  });
+
+  // Handle form submission
+  addPlayerForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      // Gather form data 
+      const club_code = document.getElementById("playerID").value;
+      const club_name = document.getElementById("event").value;
+      const stadium_name = document.getElementById("eventHalf").value;
+      const location = (document.getElementById("eventTime").value);
+      const capacity = parseInt(document.getElementById("eventTime").value);
+
+
+      // Prepare data to send to the API
+      const playerData = {
+          club_code: club_code,
+          club_name: club_name,
+          stadium_name: stadium_name,
+          location: location,
+          capacity: capacity
+      };
+
+      // Send the player data to the API
+      fetch(`http://localhost:`, { 
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(playerData)
+      })
+
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok.');
+          }
+          return response.text(); 
+      })
+
+      .then(data => {
+          console.log(data); 
+
+          addPlayerModal.style.display = "none"; 
+          updatePlayerList();  // Update the player list after adding
+      })
+      .catch(error => {
+          console.error('Error adding player:', error); 
+      });
+  });
+
+  const deletePlayerModal = document.getElementById("deletePlayerModal");
+  const deletePlayerBtn = document.querySelector(".delete-player");
+  const closeBtn2 = document.querySelector(".close-button2");
+  const deletePlayerForm = document.getElementById("deletePlayerForm");
+
+  // Event listeners for opening and closing the modal
+  deletePlayerBtn.addEventListener("click", () => {
+      deletePlayerModal.style.display = "block";
+  });
+
+  closeBtn2.addEventListener("click", () => {
+      deletePlayerModal.style.display = "none";
+  });
+
+  // Handle form submission
+  deletePlayerForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      // Gather form data 
+      const clubName = document.getElementById("clubName2").value;
+
+      // Send the player data to the API
+      fetch(`http://localhost:300`, { 
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok.');
+          }
+          return response.text(); 
+      })
+      .then(data => {
+          console.log(data); 
+
+          deletePlayerModal.style.display = "none"; 
+          updatePlayerList();  // delete the player list after adding
+      })
+      .catch(error => {
+          console.error('Error adding player:', error); 
+      });
+  });
+
 });
+
+function updatePlayerList() {
+  const tableBody = document.querySelector('#team-table tbody');
+
+  fetch(`http://localhost:3000/teams/info`) // Construct the API URL using the value
+            .then(response => response.json())
+            .then(players => {
+                tableBody.innerHTML = ""; 
+
+                players.forEach(player => {
+                  // 1. Create Table Row
+                  const row = tableBody.insertRow();
+                
+                  // 2. Format and Insert Data
+                  const dataToInsert = [
+                    player.club_code, 
+                    player.club_name, 
+                    player.stadium_name, 
+                    player.location,
+                    player.capacity,
+                  ];
+                
+                  dataToInsert.forEach(data => {
+                    const cell = row.insertCell();
+                    cell.textContent = data;
+                  });
+                });
+                
+            })
+            .catch(error => {
+                console.error("Error fetching players:", error);
+                tableBody.innerHTML = `<tr><td colspan="6">Error loading players</td></tr>`;
+            });
+}

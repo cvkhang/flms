@@ -151,6 +151,103 @@ h2 {
   background-color: #e4e2e2; /* Light gray background on hover */
 }
 
+#team-table {
+  width: 100%; /* Or set a specific width */
+  border-collapse: collapse; /* Remove extra spacing between cells */
+  margin: 20px auto; /* Center the table with some margin */
+  font-family: "Radikal"; /* Consistent font for the table */
+  table-layout: fixed; /* This is the key addition */
+  background-color: #ffffff; /* White with 80% opacity (adjust as needed) */
+}
+
+
+#team-table th, #team-table td {
+  padding: 8px;
+  text-align: center;
+  overflow: hidden; /* Prevent content from overflowing the cell */
+  text-overflow: ellipsis; /* Add ellipsis (...) if content is too long */
+  white-space: nowrap; /* Prevent text from wrapping */
+  color: #340040; /* Text color for headers */
+}
+
+
+#team-table th {
+  background-color: #e1e0e0; /* Blue with 90% opacity (adjust color and opacity as needed) */
+}
+
+#team-table tr:last-child td { /* Selects the 21th row */
+  border-bottom: 1px solid #c1c1c1; 
+}
+
+#team-table td:nth-child(2),
+#team-table td:nth-child(3) {  /* Target the 2nd cell in each row */
+  text-align: left; 
+  padding-left: 80px;
+}
+
+#team-table td:nth-child(2),
+#team-table td:nth-child(1) {  /* Target the 2nd cell in each row */
+  font-weight: bold; 
+}
+
+/* Table Row Hover Effect */
+#team-table tr:hover {
+  background-color: #e4e2e2; /* Light gray background on hover */
+}
+
+#ref-table {
+  width: 50%; /* Or set a specific width */
+  border-collapse: collapse; /* Remove extra spacing between cells */
+  margin: 20px auto; /* Center the table with some margin */
+  font-family: "Radikal"; /* Consistent font for the table */
+  table-layout: fixed; /* This is the key addition */
+  background-color: #ffffff; /* White with 80% opacity (adjust as needed) */
+  border-radius: 20px;
+  padding: 10px; 
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  position: relative
+}
+
+
+#ref-table th, #ref-table td {
+  padding: 8px;
+  text-align: center;
+  overflow: hidden; /* Prevent content from overflowing the cell */
+  text-overflow: ellipsis; /* Add ellipsis (...) if content is too long */
+  white-space: nowrap; /* Prevent text from wrapping */
+  color: #340040; /* Text color for headers */
+}
+
+
+#ref-table th {
+  background-color: #e1e0e0; /* Blue with 90% opacity (adjust color and opacity as needed) */
+}
+
+#ref-table th:first-child {
+ border-top-left-radius: 20px;
+}
+
+#ref-table th:last-child {
+  border-top-right-radius: 20px;
+  padding-right: 100px;
+ }
+
+#ref-table td:nth-child(2),
+#ref-table td:nth-child(3) {  /* Target the 2nd cell in each row */
+  text-align: left; 
+  padding-left: 80px;
+}
+
+#ref-table td:nth-child(2),
+#ref-table td:nth-child(1) {  /* Target the 2nd cell in each row */
+  font-weight: bold; 
+}
+
+/* Table Row Hover Effect */
+#ref-table tr:hover {
+  background-color: #e4e2e2; /* Light gray background on hover */
+}
+
 
 .main-nav {
   width: 250px;
@@ -570,6 +667,16 @@ a {
   font-size: 16px;
   font-family: 'Radikal';
 }
+#addPlayerForm1 button[type="submit"] {
+  background-color: #510160; /* Blue background */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Radikal';
+}
 
 #updatePlayerForm button[type="submit"] {
   background-color: #510160; /* Blue background */
@@ -583,6 +690,17 @@ a {
 }
 
 #deletePlayerForm button[type="submit"] {
+  background-color: #510160; /* Blue background */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Radikal';
+}
+
+#deletePlayerForm1 button[type="submit"] {
   background-color: #510160; /* Blue background */
   color: white;
   padding: 10px 15px;

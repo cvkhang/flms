@@ -1,1 +1,1 @@
-select _flms.submit_player_squad($1,$3,$2,$4)
+call _flms.submit_player_squad($1,$3,$2,$4)

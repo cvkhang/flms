@@ -1,1 +1,1 @@
-select _flms.submit_event($1,$2,$3,$4,$5)
+call _flms.submit_event($1,$2,$3,$4,$5)

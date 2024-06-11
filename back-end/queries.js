@@ -340,7 +340,7 @@ const unsubmitPlayer = (request, response) => {
   const player_id = (request.params.playerID)
   const match_id = (request.params.matchID)
 
-  pool.query('select _flms.delete_player_squad($1,$2)', [player_id,match_id], (error, results) => {
+  pool.query('call _flms.delete_player_squad($1,$2)', [player_id,match_id], (error, results) => {
     if (error) {
       throw error
     }
@@ -372,7 +372,7 @@ const unsubmitCoach = (request, response) => {
   const coach_id = (request.params.coachID)
   const match_id = (request.params.matchID)
 
-  pool.query('select _flms.delete_coach_squad($1,$2)', [coach_id,match_id], (error, results) => {
+  pool.query('call _flms.delete_coach_squad($1,$2)', [coach_id,match_id], (error, results) => {
     if (error) {
       throw error
     }
@@ -449,7 +449,7 @@ const unsubmitEvent = (request, response) => {
   const event_half = (request.params.event_half)
   const event_time = (request.params.event_time)
 
-  pool.query('select _flms.delete_event($1,$2,$3,$4,$5)', [match_id,player_id,_event,event_half,event_time], (error, results) => {
+  pool.query('call _flms.delete_event($1,$2,$3,$4,$5)', [match_id,player_id,_event,event_half,event_time], (error, results) => {
     if (error) {
       throw error
     }
@@ -478,6 +478,132 @@ const getMatchResult = (request, response) => {
   });
 };
 
+const getTeamsInfo = (request, response) => {
+  const match_id = (request.params.match_id)
+  // Read the SQL query from the file
+  fs.readFile('./sql/getTeamsInfo.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery, (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const getRefList = (request, response) => {
+  // Read the SQL query from the file
+  fs.readFile('./sql/getRefList.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery, (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const addRef = (request, response) => {
+  const {ref_id,ref_name} = request.body
+  // Read the SQL query from the file
+  fs.readFile('./sql/addRef.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    pool.query(sqlQuery,[ref_id,ref_name], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const deleteRef = (request, response) => {
+  const ref_id = (request.params.ref_id)
+
+  pool.query('delete from _flms.referee where ref_id = $1', [ref_id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`Ref deleted: ${ref_id}`)
+  })
+}
+
+const getRefSchedule = (request, response) => {
+  const matchweek = parseInt(request.params.matchweek)
+  // Read the SQL query from the file
+  fs.readFile('./sql/getRefSchedule.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    pool.query(sqlQuery,[matchweek], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const addRefSchedule = (request, response) => {
+  const {ref_id,match_id} = request.body
+  // Read the SQL query from the file
+  fs.readFile('./sql/addRefSchedule.sql', 'utf8', (err, sqlQuery) => {
+    if (err) {
+      console.error('Error reading SQL file:', err);
+      response.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    pool.query(sqlQuery,[ref_id,match_id], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        response.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      response.status(200).json(results.rows);
+    });
+  });
+};
+
+const deleteRefSchedule = (request, response) => {
+  const ref_id = (request.params.ref_id);
+  const match_id = (request.params.ref_id);
+
+  pool.query('delete from _flms.ref_match where ref_id = $1 and match_id = $2', [ref_id,match_id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`Ref deleted: ${ref_id}`)
+  })
+}
+
+
 module.exports = {
     //Team
     getTeams,
@@ -486,6 +612,7 @@ module.exports = {
     updateTeam,
     deleteTeam,
     getMatchplayedByTeam,
+    getTeamsInfo,
     //Stadium
     getStadiums,
     getStadiumByStadium_name,
@@ -514,7 +641,13 @@ module.exports = {
     getEventByMatch,
     submitEvent,
     unsubmitEvent,
-    getMatchResult
+    getMatchResult,
     //Ref
+    getRefList,
+    addRef,
+    deleteRef,
+    getRefSchedule,
+    addRefSchedule,
+    deleteRefSchedule
   }
   

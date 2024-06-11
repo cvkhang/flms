@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/teams', db.getTeams)
+app.get('/teams/info', db.getTeamsInfo)
 app.get('/teams/matchplayedbyTeam', db.getMatchplayedByTeam)
 app.get('/teams/:id', db.getTeamByTeam_name)
 app.post('/teams', db.createTeam)
@@ -53,6 +54,16 @@ app.post('/fixtures/players', db.submitPlayer)
 app.delete('/fixtures/players/:matchID/:playerID', db.unsubmitPlayer)
 app.post('/fixtures/coach', db.submitCoach)
 app.delete('/fixtures/coach/:matchID/:coachID', db.unsubmitCoach)
+
+
+app.get('/referee', db.getRefList)
+app.post('/referee', db.addRef)
+app.delete('/referee/:ref_id', db.deleteRef)
+app.get('/referee/schedule/:matchweek', db.getRefSchedule)
+app.post('/referee/schedule/', db.addRefSchedule)
+app.delete('/referee/schedule/:match_id/:ref_id', db.deleteRefSchedule)
+
+
 
 
 
